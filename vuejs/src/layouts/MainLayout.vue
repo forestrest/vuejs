@@ -12,9 +12,8 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/tabla" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
+        <q-route-tab to="tabla" label="Page One" />
+        <q-route-tab to="insertadata" label="Page Two" />
       </q-tabs>
     </q-header>
 
@@ -26,6 +25,4 @@
 </template>
 
 <script>
-// import { defineComponent, ref } from 'vue'
-// import EssentialLink from 'components/EssentialLink.vue'
 </script>
