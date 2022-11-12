@@ -9,21 +9,61 @@
       <q-input
         filled
         v-model="name"
-        label="Your name *"
-        hint="Name and surname"
+        label="Your names *"
+        hint="Names"
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please type something']"
       />
 
       <q-input
         filled
+        v-model="apellidos"
+        label="Your apellidos *"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+
+
+      <q-input
+        filled
         type="number"
-        v-model="age"
-        label="Your age *"
+        v-model="cc"
+        label="Identification number *"
         lazy-rules
         :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
+          val => val !== null && val !== '' || 'Please type your cc',
+        ]"
+      />
+
+      <q-input
+        filled
+        type="number"
+        v-model="cn"
+        label="Contact number *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your contact number',
+        ]"
+      />
+
+      <q-input
+        filled
+        type="email"
+        v-model="emailp"
+        label="Personal email *"
+        lazy-rules
+        :rules="[
+          [val => !!val || 'Email is missing', isValidEmail(),]
+        ]"
+      />
+      <q-input
+        filled
+        type="email"
+        v-model="emailc"
+        label="Corporative email *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your email',
         ]"
       />
 
@@ -46,12 +86,20 @@ export default {
     const $q = useQuasar()
 
     const name = ref(null)
-    const age = ref(null)
+    const apellidos = ref(null)
+    const cc = ref(null)
+    const cn = ref(null)
+    const emailp = ref(null)
+    const emailc = ref(null)
     const accept = ref(false)
 
     return {
       name,
-      age,
+      apellidos,
+      cc,
+      cn,
+      emailp,
+      emailc,
       accept,
 
       onSubmit () {
@@ -60,24 +108,33 @@ export default {
             color: 'red-5',
             textColor: 'white',
             icon: 'warning',
-            message: 'You need to accept the license and terms first'
+            messcc: 'You need to accept the license and terms first'
           })
         }
         else {
+          console.log("df");
           $q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'cloud_done',
-            message: 'Submitted'
+            messcc: 'Submitted'
           })
         }
       },
 
       onReset () {
         name.value = null
-        age.value = null
+        apellidos.value = null
+        cc.value = null
+        cn.value = null
+        emailc.value = null
+        emailp.value = null
         accept.value = false
-      }
+      },
+      isValidEmail (val) {
+        const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
+        return emailPattern.test(val) || 'Invalid email';
+      },
     }
   }
 }
